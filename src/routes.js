@@ -1,4 +1,5 @@
 import PageDefault from "components/PageDefault";
+import Categorie from "pages/Categorie";
 import Home from "pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -11,6 +12,7 @@ export default function Router() {
                     element={<PageDefault />}
                 >
                     <Route index element={<Home />} />
+                    <Route path='/categoria/:nameCategorie' element={<Categorie />} />
                 </Route>
             </Routes>
         </BrowserRouter >
