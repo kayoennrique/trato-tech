@@ -5,6 +5,7 @@ import {
   RiShoppingCart2Line,
   RiShoppingCartFill
 } from 'react-icons/ri';
+import Search from 'components/Search';
 
 const iconProps = {
   color: 'white',
@@ -25,7 +26,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className={styles.search}>
-
+        <Search />
       </div>
       <div className={styles.icons}>
         <a href='/carrinho'>
@@ -36,5 +37,5 @@ export default function Navbar() {
         </a>
       </div>
     </nav>
-  )
+  );
 }

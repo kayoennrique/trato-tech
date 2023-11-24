@@ -10,6 +10,7 @@
   position: absolute;
   width: 100vw;
   z-index: 1;
+
   @media(max-width: $tablet) {
     grid-template-areas:
       'logo logo'
@@ -20,6 +21,7 @@
     height: 200px;
     justify-items: center;
   }
+
   @media(max-width: $mobile-sm) {
     padding: 0 50px;
   }
@@ -35,6 +37,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 20px;
+
   @media(max-width: $tablet) {
     justify-self: start;
   }
@@ -43,6 +46,17 @@
 .link {
   color: white;
   font-size: 22px;
+
+  @media(max-width: $tablet) {
+    width: 100%;
+    padding: 1 50px;
+    margin-right: -10px;
+  }
+
+  @media (max-width: $mobile-sm) {
+    width: 100%;
+    padding: 5 10px;
+  }
 }
 
 .search {
@@ -61,5 +75,5 @@
   display: flex;
   gap: 20px;
   grid-area: icons;
-  margin-left: 30px;
+  margin-left: 40px;
 }
