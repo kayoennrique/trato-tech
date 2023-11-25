@@ -6,6 +6,7 @@ import {
   RiShoppingCartFill
 } from 'react-icons/ri';
 import Search from 'components/Search';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const iconProps = {
   color: 'white',
@@ -13,28 +14,30 @@ const iconProps = {
 }
 
 export default function Navbar() {
+  const location = useLocation();
+  const navigate = useNavigate();
   return (
     <nav className={styles.nav}>
-      <Logo className={styles.logo} />
+      <Logo className={styles.logo} onClick={() => navigate('/')} />
       <div className={styles.link}>
         <div>
-          <a href='/' className={classNames(styles.link, {
-            [styles.selected]: window.location.pathname === '/'
+          <Link to='/' className={classNames(styles.link, {
+            [styles.selected]: location.pathname === '/'
           })}>
             Home
-          </a>
+          </Link>
         </div>
       </div>
       <div className={styles.search}>
         <Search />
       </div>
       <div className={styles.icons}>
-        <a href='/carrinho'>
-          {window.location.pathname === 'carrinho'
+        <Link to='/carrinho'>
+          {location.pathname === 'carrinho'
             ? <RiShoppingCartFill {...iconProps} />
             : <RiShoppingCart2Line {...iconProps} />
           }
-        </a>
+        </Link>
       </div>
     </nav>
   );

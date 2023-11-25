@@ -1,0 +1,42 @@
+@import 'styles/breakpoints';
+
+.header {
+  display: grid;
+  grid-template-areas: 'text image';
+  grid-template-columns: 1fr 2fr;
+  justify-content: space-between;
+  @media(max-width: $tablet) {
+    gap: 20px;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'text' 'image';
+    text-align: center;
+  }
+  &-text {
+    color: white;
+    grid-area: text;
+    h1 {
+      font-size: 60px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+  }
+  &-button {
+    display: flex;
+    @media(max-width: $tablet) {
+      justify-content: center;
+    }
+  }
+  &-image {
+    align-self: center;
+    grid-area: image;
+    justify-self: center;
+    overflow: hidden;
+    max-width: 700px;
+    img {
+      border-radius: 144px;
+      width: 100%;
+    }
+  }
+}

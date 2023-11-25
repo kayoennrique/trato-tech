@@ -1,5 +1,4 @@
 import styles from './Item.module.scss';
-
 import {
   AiOutlineHeart,
   AiFillHeart,
@@ -8,7 +7,9 @@ import {
   FaCartPlus
 } from 'react-icons/fa';
 import { favoriteChange } from 'store/reducers/items';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartChange } from 'store/reducers/cart';
+import classNames from 'classnames';
 
 const iconProps = {
   size: 24,
@@ -22,16 +23,24 @@ export default function Item(props) {
     price,
     description,
     favorite,
-    id
+    id,
+    cart
   } = props;
   const dispatch = useDispatch();
+  const beInCart = useSelector(state => state.cart.some(itemInCart => itemInCart.id === id));
 
   function resolveFavorite() {
     dispatch(favoriteChange(id));
   }
 
+  function cartResolve() {
+    dispatch(cartChange(id));
+  }
+
   return (
-    <div className={styles.item}>
+    <div className={classNames(styles.item, {
+      [styles.itemInCart]: cart,
+    })}>
       <div className={styles['item-image']}>
         <img src={photo} alt={title} />
       </div>
@@ -51,8 +60,9 @@ export default function Item(props) {
             }
             <FaCartPlus
               {...iconProps}
-              color={false ? '#1875E8' : iconProps.color}
+              color={beInCart ? '#1875E8' : iconProps.color}
               className={styles['item-action']}
+              onClick={cartResolve}
             />
           </div>
         </div>
