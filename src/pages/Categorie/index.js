@@ -6,10 +6,13 @@ import Item from 'components/Item';
 
 export default function Categorie() {
   const { nameCategorie } = useParams();
-  const { categorie, items } = useSelector(state => ({
-    categorie: state.categories.find(categorie => categorie.id === nameCategorie),
-    items: state.items.filter(item => item.categorie === nameCategorie),
-  }));
+  const { categorie, items } = useSelector(state => {
+    const regexp = new RegExp(state.search, 'i');
+    return {
+      categorie: state.categories.find(categorie => categorie.id === nameCategorie),
+      items: state.items.filter(item => item.categorie === nameCategorie && item.title.match(regexp))
+    }
+  });
 
   return (
     <div>
