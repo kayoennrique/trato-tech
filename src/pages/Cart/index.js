@@ -3,6 +3,7 @@ import styles from './Cart.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import Item from 'components/Item';
 import { resetCart } from 'store/reducers/cart';
+import Button from 'components/Button';
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -41,13 +42,10 @@ export default function Cart() {
             Subtotal: <strong> R$ {total.toFixed(2)} </strong>
           </span>
         </div>
-        <button
-          className={styles.finish}
-          onClick={() => dispatch(resetCart())}
-        >
+        <Button onClick={() => dispatch(resetCart())}>
           Finalizar compra
-        </button>
+        </Button>
       </div>
     </div>
-  )
+  );
 }
