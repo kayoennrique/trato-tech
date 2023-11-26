@@ -88,7 +88,7 @@ export default function Item(props) {
               : (<FaCartPlus
                 {...iconProps}
                 color={beInCart ? '#1875E8' : iconProps.color}
-                className={styles['item-acao']}
+                className={styles['item-action']}
                 onClick={resolveCart}
               />)
             }
