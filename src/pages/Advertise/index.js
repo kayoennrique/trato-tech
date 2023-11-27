@@ -5,6 +5,7 @@ import Button from "components/Button";
 import { useForm } from "react-hook-form";
 import { registerItem } from "store/reducers/items";
 import { useParams } from "react-router-dom";
+import Input from "components/Input";
 
 
 export default function Advertise() {
@@ -28,17 +29,17 @@ export default function Advertise() {
                 description='Anuncie seu produto no melhor site do Brasil!'
             />
             <form className={styles.form} onSubmit={handleSubmit(cadastre)}>
-                <input
+                <Input
                     {...register('title', { required: true })}
                     placeholder="Nome do produto"
                     alt='Nome do produto'
                 />
-                <input
+                <Input
                     {...register('description', { required: true })}
                     placeholder='Descrição do produto'
                     alt='Descrição do produto'
                 />
-                <input
+                <Input
                     {...register('photo', { required: true })}
                     placeholder='URL da imagem do produto'
                     alt='URL da imagem do produto'
@@ -58,7 +59,7 @@ export default function Advertise() {
                         </option>
                     ))}
                 </select>
-                <input {...register('price', { required: true, valueAsNumber: true })} type='number' placeholder='Preço do produto' />
+                <Input {...register('price', { required: true, valueAsNumber: true })} type='number' placeholder='Preço do produto' />
                 <Button type='submit'>
                     Cadastrar produto
                 </Button>

@@ -4,14 +4,18 @@ import {
   AiFillHeart,
   AiFillMinusCircle,
   AiFillPlusCircle,
+  AiFillEdit
 } from 'react-icons/ai';
 import {
-  FaCartPlus
+  FaCartPlus,
+  FaCheckCircle
 } from 'react-icons/fa';
-import { favoriteChange } from 'store/reducers/items';
+import { favoriteChange, itemChange } from 'store/reducers/items';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartChange, changeAmount } from 'store/reducers/cart';
 import classNames from 'classnames';
+import { useState } from 'react';
+import Input from 'components/Input';
 
 const iconProps = {
   size: 24,
@@ -34,6 +38,8 @@ export default function Item(props) {
     cart,
     amount,
   } = props;
+  const [editMode, setEditMode] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
   const dispatch = useDispatch();
   const beInCart = useSelector(state => state.cart.some(itemInCart => itemInCart.id === id));
 
@@ -45,6 +51,29 @@ export default function Item(props) {
     dispatch(cartChange(id));
   }
 
+  const componentEditMode =
+    <>
+      {editMode
+        ? <FaCheckCircle
+          {...iconProps}
+          className={styles['item-action']}
+          onClick={() => {
+            setEditMode(false)
+            dispatch(itemChange(
+              {
+                id,
+                item: { title: newTitle }
+              }))
+          }}
+        />
+        : <AiFillEdit
+          {...iconProps}
+          className={styles['item-action']}
+          onClick={() => setEditMode(true)}
+        />
+      }
+    </>
+
   return (
     <div className={classNames(styles.item, {
       [styles.itemInCart]: cart,
@@ -54,7 +83,13 @@ export default function Item(props) {
       </div>
       <div className={styles['item-description']}>
         <div className={styles['item-title']}>
-          <h2>{title}</h2>
+          {editMode
+            ? <Input
+              value={newTitle}
+              onChange={e => setNewTitle(e.target.value)}
+            />
+            : <h2>{title}</h2>
+          }
           <p>{description}</p>
         </div>
         <div className={styles['item-info']}>
@@ -73,7 +108,7 @@ export default function Item(props) {
                   <AiFillMinusCircle
                     {...amountProps}
                     onClick={() => {
-                      if(amount >= 1) {
+                      if (amount >= 1) {
                         dispatch(changeAmount({ id, amount: -1 }));
                       }
                     }}
@@ -85,16 +120,21 @@ export default function Item(props) {
                   />
                 </div>
               )
-              : (<FaCartPlus
-                {...iconProps}
-                color={beInCart ? '#1875E8' : iconProps.color}
-                className={styles['item-action']}
-                onClick={resolveCart}
-              />)
+              : (
+                <>
+                  <FaCartPlus
+                    {...iconProps}
+                    color={beInCart ? '#1875E8' : iconProps.color}
+                    className={styles['item-action']}
+                    onClick={resolveCart}
+                  />
+                  {componentEditMode}
+                </>
+              )
             }
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

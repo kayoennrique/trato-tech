@@ -240,10 +240,14 @@ const itemsSlice = createSlice({
     },
     registerItem: (state, { payload }) => {
       state.push({ ...payload, id: uuid() });
+    },
+    itemChange: (state, { payload }) => {
+      const index = state.findIndex(item => item.id === payload.id);
+      Object.assign(state[index], payload.item);
     }
   }
 });
 
-export const { favoriteChange, registerItem } = itemsSlice.actions;
+export const { favoriteChange, registerItem, itemChange } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
