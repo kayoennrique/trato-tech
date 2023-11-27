@@ -32,7 +32,12 @@
   }
 
   &-image {
+    height: 160px;
     margin: 0 auto;
+    width: 335px;
+    img {
+      width: 100%;
+    }
   }
 
   &-info {
@@ -96,24 +101,24 @@
     .item {
       width: 335px;
     }
-  
+
     .item-title {
       padding: 16px 16px 0 16px;
       width: 335px;
-  
+
       p {
         width: 335px;
       }
     }
-  
+
     .item-price {
       margin: 0 auto;
     }
-  
+
     .item-info {
       flex-direction: column;
       gap: 15px;
       flex-direction: column-reverse;
     }
-  }  
+  }
 }

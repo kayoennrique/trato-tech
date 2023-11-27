@@ -2,7 +2,8 @@ import styles from './TitleWithoutImage.module.scss';
 
 export default function TitleWithoutImage({
   title,
-  description
+  description,
+  children
 }) {
   return (
     <div className={styles.container}>
@@ -12,6 +13,7 @@ export default function TitleWithoutImage({
       <h2 className={styles.description}>
         {description}
       </h2>
+      {children}
     </div>
   )
 }
