@@ -1,16 +1,22 @@
 import Header from "components/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './Advertise.module.scss'
 import Button from "components/Button";
 import { useForm } from "react-hook-form";
+import { registerItem } from "store/reducers/items";
 
 
 export default function Advertise() {
+    const dispatch = useDispatch();
     const categories = useSelector(state => state.categories.map(({ name, id }) => ({ name, id })));
-    const {register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm({
+        defaultValues: {
+            categorie: ''
+        } 
+    });
 
-    function cadastre(param) {
-        console.log('param: ', param);
+    function cadastre(data) {
+        dispatch(registerItem(data));
     }
 
     return (
@@ -20,19 +26,19 @@ export default function Advertise() {
                 description='Anuncie seu produto no melhor site do Brasil!'
             />
             <form className={styles.form} onSubmit={handleSubmit(cadastre)}>
-                <input {...register('name')}
+                <input {...register('name', { required: true })}
                     placeholder="Nome do produto"
                     alt='Nome do produto'
                 />
-                <input {...register('description')}
+                <input {...register('description', { required: true })}
                     placeholder='Descrição do produto'
                     alt='Descrição do produto'
                 />
-                <input {...register('image')}
+                <input {...register('image', { required: true })}
                     placeholder='URL da imagem do produto'
                     alt='URL da imagem do produto'
                 />
-                <select {...register('categorie')}>
+                <select {...register('categorie', { required: true })}>
                     <option value='' disabled >
                         Selecione a categoria
                     </option>
@@ -44,7 +50,7 @@ export default function Advertise() {
                         </option>
                     ))}
                 </select>
-                <input {...register('price')} type='number' placeholder='Preço do produto' />
+                <input {...register('price', { required: true })} type='number' placeholder='Preço do produto' />
                 <Button type='submit'>
                     Cadastrar produto
                 </Button>

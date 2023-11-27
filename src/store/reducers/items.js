@@ -234,13 +234,16 @@ const itemsSlice = createSlice({
   reducers: {
     favoriteChange: (state, { payload }) => {
       state = state.map(item => {
-        if(item.id === payload) item.favorite = !item.favorite;
+        if (item.id === payload) item.favorite = !item.favorite;
         return item;
       })
+    },
+    registerItem: (state, { payload }) => {
+      state.push({ ...payload, id: uuid() });
     }
   }
 });
 
-export const { favoriteChange } = itemsSlice.actions;
+export const { favoriteChange, registerItem } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
