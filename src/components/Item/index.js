@@ -1,21 +1,25 @@
-import styles from './Item.module.scss';
 import {
-  AiOutlineHeart,
-  AiFillHeart,
   AiFillMinusCircle,
   AiFillPlusCircle,
   AiFillEdit
 } from 'react-icons/ai';
 import {
   FaCartPlus,
-  FaCheckCircle
+  FaCheckCircle,
+  FaWindowClose
 } from 'react-icons/fa';
-import { favoriteChange, itemChange } from 'store/reducers/items';
+import {
+  GoBookmark,
+  GoBookmarkFill
+} from "react-icons/go";
+import styles from './Item.module.scss';
+import { favoriteChange, itemChange, itemDelete } from 'store/reducers/items';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartChange, changeAmount } from 'store/reducers/cart';
 import classNames from 'classnames';
 import { useState } from 'react';
 import Input from 'components/Input';
+import { memo } from 'react';
 
 const iconProps = {
   size: 24,
@@ -27,7 +31,7 @@ const amountProps = {
   color: '#1875E8'
 }
 
-export default function Item(props) {
+function Item(props) {
   const {
     title,
     photo,
@@ -78,6 +82,11 @@ export default function Item(props) {
     <div className={classNames(styles.item, {
       [styles.itemInCart]: cart,
     })}>
+      <FaWindowClose
+        {...iconProps}
+        className={`${styles['item-action']} ${styles['item-delete']}`}
+        onClick={() => dispatch(itemDelete(id))}
+      />
       <div className={styles['item-image']}>
         <img src={photo} alt={title} />
       </div>
@@ -98,8 +107,8 @@ export default function Item(props) {
           </div>
           <div className={styles['item-actions']}>
             {favorite
-              ? <AiFillHeart {...iconProps} color='#ff0000' className={styles['item-action']} onClick={resolveFavorite} />
-              : <AiOutlineHeart {...iconProps} className={styles['item-action']} onClick={resolveFavorite} />
+              ? <GoBookmarkFill {...iconProps} color='#ff0000' className={styles['item-action']} onClick={resolveFavorite} />
+              : <GoBookmark {...iconProps} className={styles['item-action']} onClick={resolveFavorite} />
             }
             {cart
               ? (
@@ -138,3 +147,5 @@ export default function Item(props) {
     </div>
   );
 }
+
+export default memo(Item);
