@@ -1,9 +1,12 @@
+import { createStandaloneToast } from '@chakra-ui/toast';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import itemsService from 'services/items';
 import { v4 as uuid } from 'uuid';
 
+const { toast } = createStandaloneToast();
+
 export const searchItems = createAsyncThunk(
-  'items/buscar',
+  'items/search',
   itemsService.search
 );
 
@@ -34,20 +37,17 @@ const itemsSlice = createSlice({
     .addCase(
       searchItems.fulfilled,
       (state, { payload }) => {
-        console.log('items carregado!');
         return payload;
       }
     )
     .addCase(
       searchItems.pending,
       (state, { payload }) => {
-        console.log('carregando items');
       }
     )
     .addCase(
       searchItems.rejected,
       (state, { payload }) => {
-        console.log('busca de categorias rejeitada!');
       }
     )
   }
