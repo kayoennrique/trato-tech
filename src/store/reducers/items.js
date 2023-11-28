@@ -28,20 +28,31 @@ const itemsSlice = createSlice({
       const index = state.findIndex(item => item.id === payload);
       state.splice(index, 1)
     },
-    addItems: (state, { payload }) => {
-      state.push(...payload);
-    }
   },
   extraReducers: builder => {
-    builder.addCase(
+    builder
+    .addCase(
       searchItems.fulfilled,
       (state, { payload }) => {
-        state.push(...payload)
+        console.log('items carregado!');
+        return payload;
       }
-    );
+    )
+    .addCase(
+      searchItems.pending,
+      (state, { payload }) => {
+        console.log('carregando items');
+      }
+    )
+    .addCase(
+      searchItems.rejected,
+      (state, { payload }) => {
+        console.log('busca de categorias rejeitada!');
+      }
+    )
   }
 });
 
-export const { favoriteChange, registerItem, itemChange, itemDelete, addItems } = itemsSlice.actions;
+export const { favoriteChange, registerItem, itemChange, itemDelete } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

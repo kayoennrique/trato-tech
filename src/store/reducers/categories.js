@@ -11,21 +11,28 @@ export const searchCategories = createAsyncThunk(
 const categoriesSlice = createSlice({
   name: 'categorias',
   initialState,
-  reducers: {
-    addCategories: (state, { payload }) => {
-      state.push(...payload);
-    }
-  },
   extraReducers: builder => {
-    builder.addCase(
+    builder
+    .addCase(
       searchCategories.fulfilled,
       (state, { payload }) => {
-        state.push(...payload);
+        console.log('categorias carregado!');
+        return payload;
+      }
+    )
+    .addCase(
+      searchCategories.pending,
+      (state, { payload }) => {
+        console.log('carregando categorias');
+      }
+    )
+    .addCase(
+      searchCategories.rejected,
+      (state, { payload }) => {
+        console.log('busca de categorias rejeitada!');
       }
     )
   }
 });
-
-export const { addCategories } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;
