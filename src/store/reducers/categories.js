@@ -21,25 +21,28 @@ const categoriesSlice = createSlice({
   reducers: {
     addAllCategories: (state, { payload }) => {
       return payload;
+    },
+    addACategory: (state, { payload }) => {
+      state.push(payload);
     }
   },
   extraReducers: builder => {
     builder
-    .addCase(
-      resetCart.type,
-      () => {
-        toast({
-          title: 'Sucesso!',
-          description: 'Compra completada com sucesso!',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
-      }
-    )
+      .addCase(
+        resetCart.type,
+        () => {
+          toast({
+            title: 'Sucesso!',
+            description: 'Compra completada com sucesso!',
+            status: 'success',
+            duration: 2000,
+            isClosable: true
+          })
+        }
+      )
   }
 });
 
-export const { addAllCategories } = categoriesSlice.actions;
+export const { addAllCategories, addACategory } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

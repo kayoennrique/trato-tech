@@ -1,11 +1,9 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import categoriesService from 'services/categories';
-import { addAllCategories, loadCategories, loadOneCategory } from 'store/reducers/categories';
+import { addACategory, addAllCategories, loadCategories, loadOneCategory } from 'store/reducers/categories';
 import createTask from './utils/createTask';
 
 export const listener = createListenerMiddleware();
-const { toast } = createStandaloneToast();
 
 listener.startListening({
   actionCreator: loadCategories,
@@ -25,7 +23,16 @@ listener.startListening({
 
 listener.startListening({
   actionCreator: loadOneCategory,
-  effect: async () => {
-     console.log('carregar apenas uma categorias');
+  effect: async (action, { fork, dispatch }) => {
+    const nameCategorie = action.payload;
+    await createTask({
+      fork,
+      dispatch,
+      action: addACategory,
+      search: () => categoriesService.searchOneCategory(nameCategorie),
+      textLoading: `Carregando categoria ${nameCategorie}`,
+      textSucess: `Categoria ${nameCategorie} carregada com sucesso!`,
+      textErro: `Erro na busca da categoria ${nameCategorie}`,
+    });
   }
 })
