@@ -12,8 +12,7 @@ const store = configureStore({
     cart: cartSlice,
     search: searchSlice
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().prepend(listener.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(listener.middleware),
 });
 
 export default store;

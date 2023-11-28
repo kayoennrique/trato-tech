@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/Button';
 import {  useEffect } from 'react';
-import { searchCategories } from 'store/reducers/categories';
+import { loadCategories } from 'store/reducers/categories';
 import {  searchItems } from 'store/reducers/items';
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
   const categories = useSelector(state => state.categories);
 
   useEffect(() => {
-    dispatch(searchCategories());
+    dispatch(loadCategories());
     dispatch(searchItems());
   }, [dispatch]);
 
