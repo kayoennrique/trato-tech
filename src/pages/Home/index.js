@@ -6,30 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/Button';
 import { useCallback, useEffect } from 'react';
 import instance from 'commom/config/api';
-import { addCategories } from 'store/reducers/categories';
-import { addItems } from 'store/reducers/items';
+import { searchCategories } from 'store/reducers/categories';
+import { addItems, searchItems } from 'store/reducers/items';
 
 export default function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const categories = useSelector(state => state.categories);
 
-  const categoriesSearch = useCallback(async () => {
-    const response = await instance.get('/categorias');
-
-    dispatch(addCategories(response.data));
-  }, [dispatch]);
-  
-  const itemsSearch = useCallback(async () => {
-    const response = await instance.get('/items');
-
-    dispatch(addItems(response.data));
-  }, [dispatch]);
-
   useEffect(() => {
-    categoriesSearch();
-    itemsSearch();
-  }, [categoriesSearch, itemsSearch]);
+    dispatch(searchCategories());
+    dispatch(searchItems());
+  }, [dispatch]);
 
   return (
     <div>

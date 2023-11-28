@@ -1,5 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import itemsService from 'services/items';
 import { v4 as uuid } from 'uuid';
+
+export const searchItems = createAsyncThunk(
+  'items/buscar',
+  itemsService.search
+);
 
 const itemsSlice = createSlice({
   name: 'items',
@@ -25,6 +31,14 @@ const itemsSlice = createSlice({
     addItems: (state, { payload }) => {
       state.push(...payload);
     }
+  },
+  extraReducers: builder => {
+    builder.addCase(
+      searchItems.fulfilled,
+      (state, { payload }) => {
+        state.push(...payload)
+      }
+    );
   }
 });
 
