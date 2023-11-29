@@ -8,7 +8,7 @@ export const listener = createListenerMiddleware();
 listener.startListening({
   actionCreator: loadCategories,
   effect: async (action, { dispatch, fork, unsubscribe }) => {
-    await createTask({
+    const response = await createTask({
       fork,
       dispatch,
       action: addAllCategories,
@@ -17,7 +17,9 @@ listener.startListening({
       textSucess: 'Categorias carregadas com sucesso!',
       textErro: 'Erro na busca de categorias',
     });
-      unsubscribe();
+    if (response.status === 'ok') {
+      unsubscribe();      
+      }
   }
 });
 

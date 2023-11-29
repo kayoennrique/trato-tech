@@ -45,4 +45,5 @@ export default async function createTask({
       isClosable: true
     });
   }
+  return response;
 }
