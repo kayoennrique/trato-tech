@@ -18,15 +18,21 @@ listener.startListening({
       textErro: 'Erro na busca de categorias',
     });
     if (response.status === 'ok') {
-      unsubscribe();      
-      }
+      unsubscribe();
+    }
   }
 });
 
 listener.startListening({
   actionCreator: loadOneCategory,
-  effect: async (action, { fork, dispatch }) => {
+  effect: async (action, { fork, dispatch, getState, unsubscribe }) => {
+    const { categories } = getState();
     const nameCategorie = action.payload;
+    const categoryLoaded = categories.some(categorie => categorie.id === nameCategorie);
+
+    if (categoryLoaded) return;
+    if (categories.length === 5) return unsubscribe();
+
     await createTask({
       fork,
       dispatch,

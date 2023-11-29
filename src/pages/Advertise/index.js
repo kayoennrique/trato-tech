@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { registerItem } from "store/reducers/items";
 import { useParams } from "react-router-dom";
 import Input from "components/Input";
+import { loadCategories, loadOneCategory } from "store/reducers/categories";
+import { useEffect } from "react";
 
 
 export default function Advertise() {
@@ -21,6 +23,14 @@ export default function Advertise() {
     function cadastre(data) {
         dispatch(registerItem(data));
     }
+
+    useEffect(() => {
+        dispatch(
+          nameCategorie
+            ? loadOneCategory(nameCategorie)
+            : loadCategories
+        )
+      }, [dispatch, nameCategorie]);
 
     return (
         <div className={styles.container}>
