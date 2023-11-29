@@ -3,7 +3,8 @@ import categoriesSlice from './reducers/categories';
 import itemsSlice from './reducers/items';
 import cartSlice from "./reducers/cart";
 import searchSlice from './reducers/search';
-import { listener } from './middleware/categories';
+import { categoriesListener } from './middleware/categories';
+import { itemsListener } from './middleware/items';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,9 @@ const store = configureStore({
     cart: cartSlice,
     search: searchSlice
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(listener.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(categoriesListener.middleware,
+    itemsListener.middleware
+    ),
 });
 
 export default store;

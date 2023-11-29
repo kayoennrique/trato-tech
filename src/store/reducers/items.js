@@ -31,28 +31,31 @@ const itemsSlice = createSlice({
       const index = state.findIndex(item => item.id === payload);
       state.splice(index, 1)
     },
+    addItems: (state, { payload }) => {
+      state.push(...payload);
+    }
   },
   extraReducers: builder => {
     builder
-    .addCase(
-      searchItems.fulfilled,
-      (state, { payload }) => {
-        return payload;
-      }
-    )
-    .addCase(
-      searchItems.pending,
-      (state, { payload }) => {
-      }
-    )
-    .addCase(
-      searchItems.rejected,
-      (state, { payload }) => {
-      }
-    )
+      .addCase(
+        searchItems.fulfilled,
+        (state, { payload }) => {
+          return payload;
+        }
+      ) 
+      .addCase(
+        searchItems.pending,
+        (state, { payload }) => {
+        }
+      )
+      .addCase(
+        searchItems.rejected,
+        (state, { payload }) => {
+        }
+      )
   }
 });
 
-export const { favoriteChange, registerItem, itemChange, itemDelete } = itemsSlice.actions;
+export const { favoriteChange, registerItem, itemChange, itemDelete, addItems } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

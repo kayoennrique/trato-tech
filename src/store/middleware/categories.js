@@ -3,9 +3,9 @@ import categoriesService from 'services/categories';
 import { addACategory, addAllCategories, loadCategories, loadOneCategory } from 'store/reducers/categories';
 import createTask from './utils/createTask';
 
-export const listener = createListenerMiddleware();
+export const categoriesListener = createListenerMiddleware();
 
-listener.startListening({
+categoriesListener.startListening({
   actionCreator: loadCategories,
   effect: async (action, { dispatch, fork, unsubscribe }) => {
     const response = await createTask({
@@ -23,7 +23,7 @@ listener.startListening({
   }
 });
 
-listener.startListening({
+categoriesListener.startListening({
   actionCreator: loadOneCategory,
   effect: async (action, { fork, dispatch, getState, unsubscribe }) => {
     const { categories } = getState();
