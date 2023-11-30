@@ -5,6 +5,10 @@ import cartSlice from "./reducers/cart";
 import searchSlice from './reducers/search';
 import { categoriesListener } from './middleware/categories';
 import { itemsListener } from './middleware/items';
+import createSagaMiddleware from 'redux-saga';
+import { categoriesSaga } from './sagas/categories';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
@@ -13,9 +17,15 @@ const store = configureStore({
     cart: cartSlice,
     search: searchSlice
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(categoriesListener.middleware,
-    itemsListener.middleware
-    ),
+  middleware:
+    getDefaultMiddleware =>
+      getDefaultMiddleware().prepend(
+        categoriesListener.middleware,
+        itemsListener.middleware,
+        sagaMiddleware
+      ),
 });
+
+sagaMiddleware.run(categoriesSaga);
 
 export default store;

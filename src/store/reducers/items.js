@@ -1,9 +1,6 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import itemsService from 'services/items';
 import { v4 as uuid } from 'uuid';
-
-const { toast } = createStandaloneToast();
 
 export const searchItems = createAsyncThunk(
   'items/search',
