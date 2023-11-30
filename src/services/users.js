@@ -1,11 +1,11 @@
-import instance from "commom/config/api";
+import instance from 'commom/config/api';
 
-const userService = {
-    searchForId: async () => {
-        const response = await instance.get(`/usuarios/${id}`);
+const usersService = {
+  searchForId: async (id) => {
+    const response = await instance.get(`/users/${id}`);
 
-        return response.data;
-    }
+    return response.data;
+  }
 }
 
 export default usersService;
