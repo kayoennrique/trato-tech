@@ -1,4 +1,4 @@
-import { call, delay, put, takeEvery } from 'redux-saga/effects';
+import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { addAllCategories, loadCategories } from 'store/reducers/categories';
 import { createStandaloneToast } from '@chakra-ui/toast';
 import categoriesService from 'services/categories';
@@ -37,5 +37,6 @@ function* observeCategories() {
 }
 
 export function* categoriesSaga() {
-    yield takeEvery(loadCategories, observeCategories);
+    const task = yield takeLatest(loadCategories, observeCategories);
+    yield takeLatest(addAllCategories, () => task.cancel());
 }
