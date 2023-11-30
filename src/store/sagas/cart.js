@@ -25,7 +25,7 @@ function* loadPaymentSaga() {
 function* calculateTotal() {
   yield delay(500);
   const state = yield select();
-  const total = state.cart.reduce((total, itemInCart) => {
+  const total = state.cart.data.reduce((total, itemInCart) => {
     const item = state.items.find(item => item.id === itemInCart.id);
     return total + item.price * itemInCart.amount;
   }, 0);

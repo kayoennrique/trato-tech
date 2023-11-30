@@ -9,18 +9,23 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     cartChange: (state, { payload }) => {
-      const hasItem = state.some(item => item.id === payload);
-      if (!hasItem) return [
-        ...state,
+      const hasItem = state.data.some(item => item.id === payload);
+      if (!hasItem) return {
+        total: state.total,
+        data: [...state.data,
         {
           id: payload,
           amount: 1
         }
-      ];
-      return state.filter(item => item.id !== payload);
+        ]
+      }
+      return {
+        total: state.total,
+        data: state.data.filter(item => item.id !== payload)
+      }
     },
     changeAmount: (state, { payload }) => {
-      state = state.map(itemInCart => {
+      state.data = state.data.map(itemInCart => {
         if (itemInCart.id === payload.id) itemInCart.amount += payload.amount;
         return itemInCart;
       })

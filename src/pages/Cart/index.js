@@ -9,11 +9,9 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const { cart, total } = useSelector(state => {
-    let total = 0;
     const regexp = new RegExp(state.search, 'i');
-    const cartReduce = state.cart.reduce((items, itemInCart) => {
+    const cartReduce = state.cart.data.reduce((items, itemInCart) => {
       const item = state.items.find(item => item.id === itemInCart.id);
-      total += (item.price * itemInCart.amount);
       if (item.title.match(regexp)) {
         items.push({
           ...item,
@@ -24,7 +22,7 @@ export default function Cart() {
     }, []);
     return {
       cart: cartReduce,
-      total,
+      total: state.cart.total,
     };
   });
   return (

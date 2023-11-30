@@ -45,7 +45,7 @@ function Item(props) {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const dispatch = useDispatch();
-  const beInCart = useSelector(state => state.cart.some(itemInCart => itemInCart.id === id));
+  const beInCart = useSelector(state => state.cart.data?.some(itemInCart => itemInCart.id === id));
 
   function resolveFavorite() {
     dispatch(favoriteChange(id));
