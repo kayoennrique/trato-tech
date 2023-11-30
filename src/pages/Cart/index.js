@@ -1,12 +1,13 @@
 import Header from 'components/Header';
 import styles from './Cart.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Item from 'components/Item';
-import { resetCart } from 'store/reducers/cart';
 import Button from 'components/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { cart, total } = useSelector(state => {
     let total = 0;
     const regexp = new RegExp(state.search, 'i');
@@ -42,7 +43,7 @@ export default function Cart() {
             Subtotal: <strong> R$ {total.toFixed(2)} </strong>
           </span>
         </div>
-        <Button onClick={() => dispatch(resetCart())}>
+        <Button onClick={() => navigate('/pagamento')}>
           Finalizar compra
         </Button>
       </div>

@@ -3,6 +3,7 @@ import Advertise from "pages/Advertise";
 import Cart from "pages/Cart";
 import Categorie from "pages/Categorie";
 import Home from "pages/Home";
+import Payment from "pages/Payment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function Router() {
@@ -15,6 +16,7 @@ export default function Router() {
                     <Route path='carrinho' element={<Cart />} />
                     <Route path='anuncie/:nameCategorie' element={<Advertise />} />
                     <Route path='anuncie' element={<Advertise />} />
+                    <Route path='pagamento' element={<Payment />} />
                 </Route>
             </Routes>
         </BrowserRouter >
