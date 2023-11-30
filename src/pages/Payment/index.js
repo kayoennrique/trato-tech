@@ -4,7 +4,7 @@ import Select from 'components/Select';
 import Button from 'components/Button';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadPayment } from 'store/reducers/cart';
+import { finishPayment, loadPayment } from 'store/reducers/cart';
 
 export default function Payment() {
   const [formOfPayment, setFormOfPayment] = useState('-');
@@ -17,6 +17,10 @@ export default function Payment() {
     if (e.target.value === '-') return setFormOfPayment('-');
 
     setFormOfPayment(user.cards.find(card => card.id === e.target.value));
+  }
+
+  function finish() {
+    dispatch(finishPayment({ valueTotal, formOfPayment }));
   }
 
   useEffect(() => {
@@ -44,7 +48,10 @@ export default function Payment() {
           <p> Total com taxas: R$ {valueTotal.toFixed(2)}</p>
         </div>
         <div className={styles.finish}>
-          <Button> Finalizar Compra </Button>
+          <Button
+            disabled={valueTotal === 0 || formOfPayment === '-'}
+            onClick={finish}
+          > Finalizar Compra </Button>
         </div>
       </div>
     </div>
