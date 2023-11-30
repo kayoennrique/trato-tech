@@ -8,6 +8,7 @@ import { itemsListener } from './middleware/items';
 import createSagaMiddleware from 'redux-saga';
 import { categoriesSaga } from './sagas/categories';
 import { cartSaga } from './sagas/cart';
+import userSlice from './reducers/user';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +17,8 @@ const store = configureStore({
     categories: categoriesSlice,
     items: itemsSlice,
     cart: cartSlice,
-    search: searchSlice
+    search: searchSlice,
+    user: userSlice
   },
   middleware:
     getDefaultMiddleware =>
