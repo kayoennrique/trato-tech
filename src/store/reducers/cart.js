@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
+
+export const loadPayment = createAction('carrinho/loadPayment');
 
 const cartSlice = createSlice({
   name: 'cart',
