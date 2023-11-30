@@ -1,6 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+const initialState = { data: [], total: 0 };
 
 export const loadPayment = createAction('carrinho/loadPayment');
 
@@ -21,14 +21,17 @@ const cartSlice = createSlice({
     },
     changeAmount: (state, { payload }) => {
       state = state.map(itemInCart => {
-        if(itemInCart.id === payload.id) itemInCart.amount += payload.amount;
+        if (itemInCart.id === payload.id) itemInCart.amount += payload.amount;
         return itemInCart;
       })
     },
     resetCart: () => initialState,
+    changeTotal: (state, { payload }) => {
+      state.total = payload;
+    }
   }
 });
 
-export const { resetCart, changeAmount, resetSearch, cartChange } = cartSlice.actions;
+export const { resetCart, changeAmount, cartChange, changeTotal } = cartSlice.actions;
 
 export default cartSlice.reducer;
