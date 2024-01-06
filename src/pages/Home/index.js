@@ -36,7 +36,7 @@ export default function Home() {
         </div>
         <div className={styles['categories-container']}>
           {categories.map((categorie, index) => (
-            <div key={index} onClick={() => navigate(`/categoria/${categorie.id}`)}>
+            <div key={index} data-testid='home-categorias' onClick={() => navigate(`/categoria/${categorie.id}`)}>
               <img src={categorie.thumbnail} alt={categorie.name} />
               <h1>{categorie.name}</h1>
             </div>
