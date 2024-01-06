@@ -1,13 +1,26 @@
-import Home from '.';
-import { render, screen } from '../../test-utils';
+import Home from ".";
+import { render, screen } from "../../test-utils";
+import userEvent from "@testing-library/user-event";
 
-jest.mock('services/categories');
+jest.mock("services/categories");
 
-describe('Testing Home page', () => {
-  test('should render with categories', async () => {
-    render(<Home />);
-    const categories = await screen.findAllByTestId('home-categorias');
+describe("Testing Home page", () => {
+  describe("Anuncie", () => {
+    test("It should redirect to the advertise page", () => {
+      const buttonAdvertise = screen.getByTestId("home-botao-anunciar");
 
-    expect(categories).toHaveLength(2);
-  })
-})
+      userEvent.click(buttonAdvertise);
+
+      expect(?).toHaveBeenCalledWith("/anuncie");
+    });
+  });
+
+  describe("Categories", () => {
+    it("Should render with categories", async () => {
+      render(<Home />);
+      const categories = await screen.findAllByAltTestId("home-categorias");
+
+      expect(categories).toHaveLength(2);
+    });
+  });
+});
