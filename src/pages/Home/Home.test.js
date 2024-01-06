@@ -1,5 +1,9 @@
-describe('Testing Home page', () => {
+import { render } from '@testing-library/react';
+import Home from '.';
+
+describe('Testando página Home', () => {
     test('testando', () => {
-        expect(true).toBeTruthy();
+    render(<Home />);
+    expect(true).toBeTruthy();
     })
 })
