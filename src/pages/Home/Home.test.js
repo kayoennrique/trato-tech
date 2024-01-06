@@ -1,11 +1,13 @@
-import { render } from "test-utils";
-import Home from ".";
+import Home from '.';
+import { render, screen } from '../../test-utils';
 
-describe("Testing Home page", () => {
-  test("testing", () => {
+jest.mock('services/categories');
+
+describe('Testing Home page', () => {
+  test('should render with categories', async () => {
     render(<Home />);
-    const categories = screen.getAllByTestId('home-categorias');
-    expect(categories).toHaveLength(5);
-    expect(true).toBeTruthy();
-  });
-});
+    const categories = await screen.findAllByTestId('home-categorias');
+
+    expect(categories).toHaveLength(2);
+  })
+})
