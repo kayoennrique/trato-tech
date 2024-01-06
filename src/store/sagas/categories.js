@@ -1,4 +1,4 @@
-import { call, cancel, delay, put, takeLatest } from 'redux-saga/effects';
+import { call, cancel, delay, put, take, takeLatest } from 'redux-saga/effects';
 import { addAllCategories, loadCategories } from 'store/reducers/categories';
 import { createStandaloneToast } from '@chakra-ui/toast';
 import categoriesService from 'services/categories';
