@@ -7,6 +7,7 @@ import Payment from "pages/Payment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export const routeAdvertise = 'anuncie';
+export const routeCategorie = 'categoria';
 
 export default function Router() {
     return (
@@ -14,7 +15,7 @@ export default function Router() {
             <Routes>
                 <Route path='/' element={<PageDefault />} >
                     <Route index element={<Home />} />
-                    <Route path='/categoria/:nameCategorie' element={<Categorie />} />
+                    <Route path={`/${routeCategorie}/:nameCategorie`} element={<Categorie />} />
                     <Route path='carrinho' element={<Cart />} />
                     <Route path='anuncie/:nameCategorie' element={<Advertise />} />
                     <Route path='anuncie' element={<Advertise />} />
