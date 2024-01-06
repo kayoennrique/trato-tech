@@ -1,26 +1,37 @@
-import Home from ".";
-import { render, screen } from "../../test-utils";
-import userEvent from "@testing-library/user-event";
+import { routeAdvertise } from '../../routes';
+import Home from '.';
+import { render, screen } from '../../test-utils';
+import userEvent from '@testing-library/user-event';
 
-jest.mock("services/categories");
+jest.mock('services/categories');
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate
+}))
 
-describe("Testing Home page", () => {
-  describe("Anuncie", () => {
-    test("It should redirect to the advertise page", () => {
-      const buttonAdvertise = screen.getByTestId("home-botao-anunciar");
+describe('Testing Home page', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  })
+  describe('Advertise', () => {
+    it('It should redirect to the advertise page', () => {
+      render(<Home />);
+      const buttonAdvertise = screen.getByTestId('home-botao-anunciar');
 
       userEvent.click(buttonAdvertise);
 
-      expect(?).toHaveBeenCalledWith("/anuncie");
-    });
-  });
+      expect(mockNavigate).toHaveBeenCalledWith(`/${routeAdvertise}`);
+    })
+  })
 
-  describe("Categories", () => {
-    it("Should render with categories", async () => {
+  describe('Categories', () => {
+    it('Must render with categories', async () => {
       render(<Home />);
-      const categories = await screen.findAllByAltTestId("home-categorias");
-
+      const categories = await screen.findAllByTestId('home-categorias');
+  
       expect(categories).toHaveLength(2);
-    });
-  });
-});
+    }) 
+  })
+
+})

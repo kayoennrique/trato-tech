@@ -6,6 +6,8 @@ import Home from "pages/Home";
 import Payment from "pages/Payment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+export const routeAdvertise = 'anuncie';
+
 export default function Router() {
     return (
         <BrowserRouter>

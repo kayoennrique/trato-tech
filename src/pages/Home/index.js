@@ -24,7 +24,10 @@ export default function Home() {
         image={clock}
         className={styles.header}
       >
-        <Button onClick={() => navigate('/anuncie')}>
+        <Button 
+        onClick={() => navigate('/anuncie')}
+        data-testid='home-botao-anunciar'
+        >
           Quero anunciar
         </Button>
       </Header>
